@@ -1,0 +1,286 @@
+{
+	"info": {
+		"_postman_id": "1ab29a75-95d2-4e61-a257-0971e15b75a0",
+		"name": "Design Pattern Tutorial",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1518342"
+	},
+	"item": [
+		{
+			"name": "BambangShop Publisher",
+			"item": [
+				{
+					"name": "Product",
+					"item": [
+						{
+							"name": "List All Products",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/product/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"product",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Product by ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/product/0/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"product",
+										"0",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create New Product",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Sapu Cap Bambang\",\r\n    \"description\": \"Sapu ijuk ukuran sedang dengan daya tahan hingga 10 juta kali sapuan.\",\r\n    \"product_type\": \"APPLIANCES\",\r\n    \"price\": 25000\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/product/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"product",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Publish Product by ID",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/product/0/publish",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"product",
+										"0",
+										"publish"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Product by ID",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/product/0/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"product",
+										"0",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Notification",
+					"item": [
+						{
+							"name": "Subscribe to Type",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"url\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\",\r\n    \"name\": \"Rick Asli\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/notification/subscribe/APPLIANCES",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"notification",
+										"subscribe",
+										"APPLIANCES"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Unsubscribe from Type",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/notification/unsubscribe/APPLIANCES?url=https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"notification",
+										"unsubscribe",
+										"APPLIANCES"
+									],
+									"query": [
+										{
+											"key": "url",
+											"value": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "BambangShop Receiver",
+			"item": [
+				{
+					"name": "[TEST] Receive Notification",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"product_title\": \"Vacuum Cleaner Rick ASLI\",\r\n    \"product_url\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\",\r\n    \"product_type\": \"APPLIANCES\",\r\n    \"subscriber_name\": \"Bambang Sudrajat\",\r\n    \"status\": \"DELETED\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/receive",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"receive"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "View Notification Messsages",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8001/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Subscribe to Type",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8001/subscribe/APPLIANCES",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"subscribe",
+								"APPLIANCES"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unsubscribe from Type",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8001/unsubscribe/APPLIANCES",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"unsubscribe",
+								"APPLIANCES"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

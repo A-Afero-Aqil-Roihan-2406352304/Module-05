@@ -77,7 +77,57 @@ This is the place for you to write reflections:
 ### Mandatory (Publisher) Reflections
 
 #### Reflection Publisher-1
+Here are the questions for this reflection:
+1. In the Observer pattern diagram explained by the Head First Design Pattern book, Subscriber
+   is defined as an interface. Explain based on your understanding of Observer design patterns,
+   do we still need an interface (or trait in Rust) in this BambangShop case, or a single Model
+   struct is enough?
+- Penggunaan satu Model struct saja sudah cukup karena saat ini hany ada satu jenis entitas yang menerima notifikasi, yaitu aplikasi Receiver.
+
+2. id in Program and url in Subscriber is intended to be unique. Explain based on your
+   understanding, is using Vec (list) sufficient or using DashMap (map/dictionary) like we currently
+   use is necessary for this case?
+-DashMap diperlukan untuk kasus ini karena pencarian, pembaruan, dan penghapusan data berdasarkan kunci unik (id atau url) dengan kompleksitas waktu rata-rata O(1)
+
+3. When programming using Rust, we are enforced by rigorous compiler constraints to make a
+   thread-safe program. In the case of the List of Subscribers (SUBSCRIBERS) static variable, we
+   used the DashMap external library for thread safe HashMap. Explain based on your
+   understanding of design patterns, do we still need DashMap or we can implement Singleton
+   pattern instead?
+   - Kita tetap membutuhkan DashMap meskipun sudah menggunakan Singleton. Singleton menjamin hanya ada satu daftar, tetapi DashMap mnjamin saat banyak thred mengakses daftar tunggal tersebut secara bersamaan, tidak terjadi data race.
+
 
 #### Reflection Publisher-2
+Here are the questions for this reflection:
+1. In the Model-View Controller (MVC) compound pattern, there is no “Service” and “Repository”.
+   Model in MVC covers both data storage and business logic. Explain based on your
+   understanding of design principles, why we need to separate “Service” and “Repository” from
+   a Model?
+- Kita memisahkannya karena menerapkan prinsip Single Responsibility Principle (SRP). di mana Repository fokus pada abstraksi penyimpanan data, dan Service fokus pada logika bisnis.
+
+2. What happens if we only use the Model? Explain your imagination on how the interactions
+   between each model (Program, Subscriber, Notification) affect the code complexity for
+   each model?
+- Jika kita hanya menggunakan Model , kode akan menjadi sangat kompleks dan sulit dikelola (Fat Model).
+- Model Program akan menjadi sangat berat karena harus memahami cara kerja internal Subscriber. Model Notification akan tercampur dengan logika pengiriman (seperti HTTP request), yang seharusnya bukan bagian dari sebuah representasi data.
+
+3. Have you explored more about Postman? Tell us how this tool helps you to test your current
+   work. You might want to also list which features in Postman you are interested in or feel like it
+   is helpful to help your Group Project or any of your future software engineering projects.
+- Saya sudah mengeksplor sedikit tentang postman. Dengan adanyya postman, saya dapat melakukan test program saya tanpa harus membuat antarmuka pengguna (UI) terlebih dahulu.
+- fitur postman yang menarik dan mungkin membantu saya kedepannya: 1. Collections 2. Environment Variables 3. Automated Testing
 
 #### Reflection Publisher-3
+Here are the questions for this reflection:
+1. Observer Pattern has two variations: Push model (publisher pushes data to subscribers) and
+   Pull model (subscribers pull data from publisher). In this tutorial case, which variation of
+   Observer Pattern that we use?
+- Kita menggunakan Push model (publisher pushes data to subscribers). Publisher (BambangShop) secara aktif mengirimkan data notifikasi lengkap dalam bentuk payload Notification ke setiap subscriber segera setelah terjadi perubahan status produk.
+2. What are the advantages and disadvantages of using the other variation of Observer Pattern
+   for this tutorial case? (example: if you answer Q1 with Push, then imagine if we used Pull)
+- Advantage memakai Pull model : Subscriber hanya mengambil data yang benar-benar mereka butuhkan atau inginkan pada waktu yang mereka sendri.
+- Disadvantage memakai Pull model : Ada jeda waktu antara saat produk berubah dengan saat subscriber melakukan pulling data.
+
+3. Explain what will happen to the program if we decide to not use multi-threading in the
+   notification process.
+- Publisher harus menunggu satu proses pengiriman notifikasi selesai sebelum bisa mengirim ke subscriber berikutnya. Sehingga Pengguna yang menunggu notifikasi akan merasa aplikasi sangat lambat karena harus menunggu seluruh antrean notifikasi selesai.
